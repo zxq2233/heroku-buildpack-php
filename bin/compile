@@ -4,6 +4,9 @@
 # fail fast
 set -e
 
+echo " !     Your application is utilizing Heroku's legacy PHP support."
+echo "       For more info, visit: https://devcenter.heroku.com/categories/php"
+
 # Heroku Revision.
 #
 # Affixed to all vendored binary output to represent changes to the
