@@ -39,6 +39,11 @@ BP_DIR=$(cd $(dirname $0); cd ..; pwd)
 # convenience functions
 source $BP_DIR/bin/common.sh
 
+error "The 'beta' branch of this buildpack is no longer supported.
+Please switch to the release version by removing BUILDPACK_URL from your
+configuration using 'heroku config:unset BUILDPACK_URL'.
+See http://devcenter.heroku.com/categories/php for more information."
+
 export_env_dir "$ENV_DIR" "" '^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH|LD_LIBRARY_PATH)$'
 
 BUILDPACK_URL=${BUILDPACK_URL:-} # Anvil has none
