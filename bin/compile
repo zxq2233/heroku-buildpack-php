@@ -4,8 +4,28 @@
 # fail fast
 set -e
 
+echo ""
 echo " !     Your application is utilizing Heroku's legacy PHP support."
-echo "       For more info, visit: https://devcenter.heroku.com/categories/php"
+echo ""
+echo "       Upgrade to the official PHP functionality (launched mid-2014) as"
+echo "       soon as possible to receive support, the latest & secure PHP and"
+echo "       web server versions, and dramatically improved performance."
+echo ""
+echo "       To migrate your application, run the following commands:"
+echo "       $ heroku config:unset BUILDPACK_URL"
+echo "       $ heroku buildpacks:clear"
+echo "       Then create a commit (e.g. using 'git commit --allow-empty') and"
+echo "       push to Heroku again."
+echo ""
+echo "       For full docs, visit: https://devcenter.heroku.com/categories/php"
+echo ""
+
+if [[ "${STACK:-cedar-14}" == "cedar-14" ]]; then
+    echo " !     ERROR: legacy PHP support is incompatible with stack 'cedar-14'."
+    echo "       Follow the instructions above to upgrade to official PHP support."
+    echo ""
+    exit 1
+fi
 
 # Heroku Revision.
 #
