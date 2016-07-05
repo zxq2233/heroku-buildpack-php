@@ -366,7 +366,7 @@ echo "Starting php-fpm..." >&2
     trap '' INT;
     trap 'echo "php-fpm" >&3;' EXIT
     trap 'trap - TERM; kill -TERM $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -TERM $BASHPID' TERM
-    trap 'trap - USR1 EXIT; kill -TERM $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -USR1 $BASHPID' USR1
+    trap 'trap - USR1 EXIT; kill -QUIT $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -USR1 $BASHPID' USR1 # kill FPM with SIGQUIT for graceful stop if parent process has initiated a shutdown
     
     php-fpm --nodaemonize -y "$fpm_config" ${php_config:+-c "$php_config"} & pid=$!
     
@@ -382,7 +382,7 @@ echo "Starting httpd..." >&2
     trap '' INT;
     trap 'echo "httpd" >&3;' EXIT
     trap 'trap - TERM; kill -TERM $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -TERM $BASHPID' TERM
-    trap 'trap - USR1 EXIT; kill -TERM $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -USR1 $BASHPID' USR1
+    trap 'trap - USR1 EXIT; kill -WINCH $pid 2> /dev/null || true & wait $pid 2> /dev/null || true; [[ ${BASHPID:-} ]] && kill -USR1 $BASHPID' USR1 # kill HTTPD with SIGWINCH for graceful stop if parent process has initiated a shutdown
     
     httpd -D NO_DETACH -c "Include $httpd_config" & pid=$!
     
