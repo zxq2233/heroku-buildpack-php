@@ -17,4 +17,7 @@
         "bin/heroku-php-apache2",
         "bin/heroku-php-nginx"
     ]
+    "require": {
+         "ext-imagick": "*",
+    }
 }
